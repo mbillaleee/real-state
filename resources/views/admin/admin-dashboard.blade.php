@@ -39,6 +39,9 @@
 	{{-- Toaster alert --}}
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" href="{{asset('/backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css')}}">
+	
 </head>
 <body>
 	<div class="main-wrapper">
@@ -104,6 +107,14 @@
 	}
 	@endif 
 	</script>
+
+	<!-- Plugin js for this page -->
+	<script src="{{asset('/backend/assets/vendors/datatables.net/jquery.dataTables.js')}}"></script>
+	<script src="{{asset('/backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js')}}"></script>
+	
+	<!-- Custom js for this page -->
+	<script src="{{asset('/backend/assets/js/data-table.js')}}"></script>
+	<!-- End custom js for this page -->
 
 </body>
 </html>    

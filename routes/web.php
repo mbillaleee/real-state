@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\PropertyTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,6 +49,13 @@ Route::get('/admin/login', [AdminController::class, 'AdminLogIn'])->name('admin.
 
 
 
+//Admin Group Middleware
+Route::middleware(['auth','role:admin'])->group(function(){
+    Route::controller(PropertyTypeController::class)->group(function(){
+        //Property type controller
+        Route::get('/all/type', 'index')->name('all.type');
 
+    });
+  });
 
 require __DIR__.'/auth.php';
