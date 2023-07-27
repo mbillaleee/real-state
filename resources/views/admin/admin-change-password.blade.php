@@ -50,37 +50,30 @@
             <div class="row">
                 <div class="card-body">
 
-                        <h6 class="card-title">Update Admin Profile</h6>
+                        <h6 class="card-title">Admin Change Password</h6>
 
-                        <form class="forms-sample mt-3" method="POST" action="{{route('admin.profile.update')}}" enctype="multipart/form-data">
+                        <form class="forms-sample mt-3" method="POST" action="{{route('admin.update.password')}}">
                                 @csrf
                                 <div class="mb-3">
-                                        <label for="exampleInputUsername1" class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="exampleInputUsername1" name="username" value="{{ $profileData->username }}" autocomplete="off" placeholder="Username">
+                                        <label for="exampleInputUsername1" class="form-label">Old Password</label>
+                                        <input type="password" class="form-control @error('old_password') is-invalid @enderror" id="old_password" name="old_password">
+                                        @error('old_password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                 </div>
                                 <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="exampleInputUsername1" name="name" value="{{ $profileData->name }}" autocomplete="off" placeholder="Username">
+                                        <label for="new_password" class="form-label">New Password</label>
+                                        <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" name="new_password">
+                                        @error('new_password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                 </div>
                                 <div class="mb-3">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="exampleInputUsername1" name="email" value="{{ $profileData->email }}" autocomplete="off" placeholder="Username">
-                                </div>
-                                <div class="mb-3">
-                                        <label for="phone" class="form-label">Phone</label>
-                                        <input type="text" class="form-control" id="exampleInputUsername1" name="phone" value="{{ $profileData->phone }}" autocomplete="off" placeholder="Username">
-                                </div>
-                                <div class="mb-3">
-                                        <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="exampleInputUsername1" name="address" value="{{ $profileData->address }}" autocomplete="off" placeholder="Username">
-                                </div>
-                                <div class="mb-3">
-                                        <label for="photo" class="form-label">Photo</label>
-                                        <input type="file" class="form-control" id="imageInput" name="photo">
-                                </div>
-                                <div class="mb-3">
-                                        <label for="photo" class="form-label"></label>
-                                        <img class="wd-80 rounded-circle" id="displayedImage" src="{{(!empty($profileData->photo)) ? url('uploads/admin-images/'.$profileData->photo) : url('uploads/no_image.jpg')}}" alt="profile">
+                                        <label for="new_password_confirmation" class="form-label">Confirm New Password</label>
+                                        <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation">
+                                        @error('new_password_confirmation')
+                                                <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                 </div>
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>
                                 <button class="btn btn-secondary">Cancel</button>
@@ -92,18 +85,5 @@
           <!-- middle wrapper end -->
         </div>
 </div>
-
-
-<script type="text/javascript">
-        $(document).ready(function(){
-                $('#imageInput').change(function(e){
-                        var reader = new FileReader();
-                        reader.onload = function(e){
-                                $('#displayedImage').attr('src', e.target.result);
-                        }
-                        reader.readAsDataURL(e.target.files['0']);
-                });
-        });
-</script>
 
 @endsection

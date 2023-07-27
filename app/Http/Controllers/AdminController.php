@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
@@ -48,15 +49,56 @@ class AdminController extends Controller
         $profileData->address = $request->address;
         if ($request->file('photo')) {
             $file = $request->file('photo');
+            @unlink(public_path('uploads/admin-images/'.$profileData->photo));
             $filename = date('YmdHi').$file->getClientOriginalName();
             $file->move(public_path('uploads/admin-images'),$filename);
             $profileData['photo'] = $filename;
         }
         $profileData->save();
-        return redirect()->back();
+
+        $notification = array(
+            'message' => 'Admin Profile Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
 
     }
 
+    public function AdminCangePassword()
+    {
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        return view('admin.admin-change-password', compact('profileData'));
+    }
+    public function AdminUpdatePassword(Request $request)
+    {
+        // Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed'
+        ]);
+        // Hash the old password
+        if (!Hash::check($request->old_password, auth::user()->password )) {
+            $notification = array(
+                'message' => 'Old Password Does Not Match!',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
 
+        // Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+        
+        $notification = array(
+            'message' => ' Password Change Successfully',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+
+
+        return view('admin.admin-change-password', compact('profileData'));
+    }
     
 }
