@@ -5,7 +5,7 @@
 
                 <nav class="page-breadcrumb">
                         <ol class="breadcrumb">
-                                <a href="{{route('add.type')}}" class="btn btn-inverse-info">Add Property Type</a> 
+                                <a href="{{route('add.amenitie')}}" class="btn btn-inverse-info">Add Amenitie</a> 
                         </ol>
                 </nav>
 
@@ -13,23 +13,21 @@
                         <div class="col-md-12 grid-margin stretch-card">
                                 <div class="card">
                                 <div class="card-body">
-                                        <h6 class="card-title">All Property Type</h6>
+                                        <h6 class="card-title">All Amenitie</h6>
                                         <div class="table-responsive">
                                         <table id="dataTableExample" class="table">
                                         <thead>
                                         <tr>
                                                 <th>SL</th>
-                                                <th>Type Name</th>
-                                                <th>Type Icon</th>
+                                                <th>Amenitie Name</th>
                                                 <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($types as $key => $type)
+                                        @foreach ($amenities as $key => $type)
                                         <tr>
                                                 <td>{{$key + 1}}</td>
-                                                <td>{{$type->type_name}}</td>
-                                                <td>{{$type->type_icon}}</td>
+                                                <td>{{$type->amenitie_name}}</td>
                                                 <td>
                                                         <a href="{{route('edit.type', $type->id)}}" class="btn btn-inverse-warning">Edit</a>
                                                         <a href="{{route('delete.type', $type->id)}}" class="btn btn-inverse-danger" id="delete">Delete</a>

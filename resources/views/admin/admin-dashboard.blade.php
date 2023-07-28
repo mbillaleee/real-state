@@ -107,6 +107,10 @@
 	}
 	@endif 
 	</script>
+	{{-- Sweet alert cdn link --}}
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="{{asset('/backend/assets/js/code/code.js')}}"></script>
+
 
 	<!-- Plugin js for this page -->
 	<script src="{{asset('/backend/assets/vendors/datatables.net/jquery.dataTables.js')}}"></script>
