@@ -54,6 +54,10 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::controller(PropertyTypeController::class)->group(function(){
         //Property type controller
         Route::get('/all/type', 'index')->name('all.type');
+        Route::get('/add/type', 'create')->name('add.type');
+        Route::post('/store/type', 'store')->name('store.type');
+        Route::get('/edit/type/{id}', 'edit')->name('edit.type');
+        Route::post('/update/type/{id}', 'update')->name('update.type');
 
     });
   });
