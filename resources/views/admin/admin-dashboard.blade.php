@@ -110,6 +110,8 @@
 	{{-- Sweet alert cdn link --}}
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<script src="{{asset('/backend/assets/js/code/code.js')}}"></script>
+	{{-- Javascript validation --}}
+	<script src="{{asset('/backend/assets/js/code/validate.min.js')}}"></script>
 
 
 	<!-- Plugin js for this page -->

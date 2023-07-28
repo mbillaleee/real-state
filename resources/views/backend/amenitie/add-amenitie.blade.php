@@ -12,11 +12,11 @@
 
                         <h6 class="card-title">Add Amenities</h6>
 
-                        <form class="forms-sample mt-3" method="POST" action="{{route('store.amenitie')}}">
+                        <form class="forms-sample mt-3" method="POST" action="{{route('store.amenitie')}}" id="myForm">
                                 @csrf
-                                <div class="mb-3">
+                                <div class="form-group mb-3">
                                         <label for="amenitie_name" class="form-label">Amenitie Name</label>
-                                        <input type="text" class="form-control @error('amenitie_name') is-invalid @enderror" id="amenitie_name" name="amenitie_name">
+                                        <input type="text" class="form-control" name="amenitie_name">
                                         @error('amenitie_name')
                                                 <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -32,4 +32,34 @@
         </div>
 </div>
 
+
+<script type="text/javascript">
+        $(document).ready(function (){
+            $('#myForm').validate({
+                rules: {
+                    amenitie_name: {
+                        required : true,
+                    }, 
+                    
+                },
+                messages :{
+                     amenitie_name: {
+                        required : 'Please Enter Amenitie Name',
+                    }, 
+                },
+                errorElement : 'span', 
+                errorPlacement: function (error,element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight : function(element, errorClass, validClass){
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight : function(element, errorClass, validClass){
+                    $(element).removeClass('is-invalid');
+                },
+            });
+        });
+        
+    </script>
 @endsection
