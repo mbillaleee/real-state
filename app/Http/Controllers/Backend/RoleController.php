@@ -21,17 +21,28 @@ class RoleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function CreatePermission()
     {
-        //
+        return view('backend.pages.permission.add-permission');
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function StorePermission(Request $request)
     {
-        //
+        $permission = Permission::create([
+            'name' => $request->name,
+            'group_name' => $request->group_name
+        ]);
+
+        $notification = array(
+            'message' => 'Permission Created Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.permission')->with($notification);
+    
     }
 
     /**
@@ -45,24 +56,42 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function EditPermission(string $id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        return view('backend.pages.permission.edit-permission', compact('permission'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function UpdatePermission(Request $request, string $id)
     {
-        //
+        $per_id = $request->id;
+        $permission = Permission::findOrFail($per_id)->update([
+            'name' => $request->name,
+            'group_name' => $request->group_name
+        ]);
+
+        $notification = array(
+            'message' => 'Permission Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.permission')->with($notification);
+    
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function DestroyPermission(string $id)
     {
-        //
+        Permission::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Permission Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    
     }
 }

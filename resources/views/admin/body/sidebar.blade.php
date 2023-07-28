@@ -108,7 +108,7 @@
                     <a href="{{route('all.permission')}}" class="nav-link">All Permission</a>
                   </li>
                   <li class="nav-item">
-                    <a href="pages/ui-components/alerts.html" class="nav-link">Alerts</a>
+                    <a href="{{route('add.permission')}}" class="nav-link">Add Permission</a>
                   </li>
                 </ul>
               </div>

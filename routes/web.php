@@ -79,11 +79,11 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::controller(RoleController::class)->group(function(){
         //  controller
         Route::get('/all/permission', 'AllPermission')->name('all.permission');
-        Route::get('/add/permission', 'create')->name('add.permission');
-        Route::post('/store/permission', 'store')->name('store.permission');
-        Route::get('/edit/permission/{id}', 'edit')->name('edit.permission');
-        Route::post('/update/permission/{id}', 'update')->name('update.permission');
-        Route::get('/delete/permission/{id}', 'destroy')->name('delete.permission');
+        Route::get('/add/permission', 'CreatePermission')->name('add.permission');
+        Route::post('/store/permission', 'StorePermission')->name('store.permission');
+        Route::get('/edit/permission/{id}', 'EditPermission')->name('edit.permission');
+        Route::post('/update/permission/{id}', 'UpdatePermission')->name('update.permission');
+        Route::get('/delete/permission/{id}', 'DestroyPermission')->name('delete.permission');
 
     });
 
