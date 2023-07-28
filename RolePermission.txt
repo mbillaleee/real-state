@@ -1,0 +1,32 @@
+1. 
+composer require spatie/laravel-permission
+
+2.
+config/app.php file:
+'providers' => [
+    // ...
+    Spatie\Permission\PermissionServiceProvider::class,
+];
+
+3.
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider
+
+4.
+php artisan optimize:clear
+ # or
+ php artisan config:clear
+
+ 5.
+ php artisan migrate
+
+ // The User model requires this trait
+ use Spatie\Permission\Traits\HasRoles;
+use HasRoles;
+
+
+6.
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+$role = Role::create(['name' => 'writer']);
+$permission = Permission::create(['name' => 'edit articles']);

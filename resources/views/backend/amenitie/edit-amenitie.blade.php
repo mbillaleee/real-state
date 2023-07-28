@@ -10,22 +10,15 @@
                 <div class="card">
                 <div class="card-body">
 
-                        <h6 class="card-title">Edit Property Type</h6>
+                        <h6 class="card-title">Add Amenities</h6>
 
-                        <form class="forms-sample mt-3" method="POST" action="{{route('update.type', $type->id)}}">
+                        <form class="forms-sample mt-3" method="POST" action="{{route('update.amenitie', $amenitie->id)}}" id="myForm">
                                 @csrf
-                                <input type="hidden" name="id" id="" value="{{$type->id}}">>
-                                <div class="mb-3">
-                                        <label for="type_name" class="form-label">Type Name</label>
-                                        <input type="text" class="form-control @error('type_name') is-invalid @enderror" id="type_name" name="type_name" value="{{$type->type_name}}">
-                                        @error('type_name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                </div>
-                                <div class="mb-3">
-                                        <label for="type_icon" class="form-label">Type Icon</label>
-                                        <input type="text" class="form-control @error('type_icon') is-invalid @enderror" id="type_icon" name="type_icon" value="{{$type->type_icon}}">
-                                        @error('type_icon')
+                                <div class="form-group mb-3">
+                                        <input type="hidden" name="id" id="" value="{{$amenitie->id}}">
+                                        <label for="amenitie_name" class="form-label">Amenitie Name</label>
+                                        <input type="text" class="form-control" name="amenitie_name" value="{{$amenitie->amenitie_name}}">
+                                        @error('amenitie_name')
                                                 <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                 </div>
@@ -34,10 +27,40 @@
 
 </div>
             </div>
-          </div>
         </div>
+          </div>
           <!-- middle wrapper end -->
         </div>
 </div>
 
+
+<script type="text/javascript">
+        $(document).ready(function (){
+            $('#myForm').validate({
+                rules: {
+                    amenitie_name: {
+                        required : true,
+                    }, 
+                    
+                },
+                messages :{
+                     amenitie_name: {
+                        required : 'Please Enter Amenitie Name',
+                    }, 
+                },
+                errorElement : 'span', 
+                errorPlacement: function (error,element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight : function(element, errorClass, validClass){
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight : function(element, errorClass, validClass){
+                    $(element).removeClass('is-invalid');
+                },
+            });
+        });
+        
+    </script>
 @endsection

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Backend\AmenitieController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -73,6 +74,19 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('/delete/amenitie/{id}', 'destroy')->name('delete.amenitie');
 
     });
+
+    //Permission All Route
+    Route::controller(RoleController::class)->group(function(){
+        //  controller
+        Route::get('/all/permission', 'AllPermission')->name('all.permission');
+        Route::get('/add/permission', 'create')->name('add.permission');
+        Route::post('/store/permission', 'store')->name('store.permission');
+        Route::get('/edit/permission/{id}', 'edit')->name('edit.permission');
+        Route::post('/update/permission/{id}', 'update')->name('update.permission');
+        Route::get('/delete/permission/{id}', 'destroy')->name('delete.permission');
+
+    });
+
   });
 
 require __DIR__.'/auth.php';
