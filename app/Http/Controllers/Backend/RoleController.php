@@ -97,6 +97,8 @@ class RoleController extends Controller
         return redirect()->back()->with($notification);
     
     }
+
+
     public function ImportPermission()
     {
         
@@ -118,5 +120,67 @@ class RoleController extends Controller
         );
         return redirect()->back()->with($notification);
 
+    }
+
+
+
+    //  Role All Method
+
+    public function AllRole()
+    {
+        $roles = Role::all();
+        return view('backend.pages.role.all-role', compact('roles'));
+    }
+
+    public function CreateRole()
+    {
+        return view('backend.pages.role.add-role');
+
+    }
+
+    public function StoreRole(Request $request)
+    {
+        Role::create([
+            'name' => $request->name,
+        ]);
+
+        $notification = array(
+            'message' => 'Role Created Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.role')->with($notification);
+    
+    }
+
+    public function EditRole(string $id)
+    {
+        $role = Role::findOrFail($id);
+        return view('backend.pages.role.edit-role', compact('role'));
+    }
+
+    public function UpdateRole(Request $request, string $id)
+    {
+        $rol_id = $request->id;
+        Role::findOrFail($rol_id)->update([
+            'name' => $request->name,
+        ]);
+
+        $notification = array(
+            'message' => 'Role Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.role')->with($notification);
+    
+    }
+
+    public function DestroyRole(string $id)
+    {
+        Role::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Role Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    
     }
 }

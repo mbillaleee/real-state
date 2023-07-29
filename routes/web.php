@@ -89,6 +89,20 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/import/store/permission', 'ImportStorePermission')->name('import.store.permission');
 
     });
+    //Permission All Route
+    Route::controller(RoleController::class)->group(function(){
+        //  controller
+        Route::get('/all/role', 'AllRole')->name('all.role');
+        Route::get('/add/role', 'CreateRole')->name('add.role');
+        Route::post('/store/role', 'StoreRole')->name('store.role');
+        Route::get('/edit/role/{id}', 'EditRole')->name('edit.role');
+        Route::post('/update/role/{id}', 'UpdateRole')->name('update.role');
+        Route::get('/delete/role/{id}', 'DestroyRole')->name('delete.role');
+        Route::get('/import/role', 'ImportRole')->name('import.role');
+        Route::get('/export/role', 'ExportRole')->name('export.role');
+        Route::post('/import/store/role', 'ImportStoreRole')->name('import.store.role');
+
+    });
 
   });
 
