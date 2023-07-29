@@ -12,11 +12,11 @@
 
                                         <h6 class="card-title">Add Roles In Permission</h6>
 
-                                        <form class="forms-sample mt-3" method="POST" action="{{route('store.role')}}" id="myForm">
+                                        <form class="forms-sample mt-3" method="POST" action="{{route('store.role.permission')}}" id="myForm">
                                                 @csrf
                                                 <div class="form-group mb-3">
                                                         <label for="amenitie_name" class="form-label">Role Name</label>
-                                                        <select name="group_name" id="" class="form-control">
+                                                        <select name="role_id" id="" class="form-control">
                                                                 <option value="" disable>Select Group</option>
                                                                 @foreach ($roles as $role)
                                                                 <option value="{{$role->id}}">{{$role->name}}</option>
