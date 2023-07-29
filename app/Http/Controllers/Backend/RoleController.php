@@ -233,4 +233,19 @@ class RoleController extends Controller
         return view('backend.pages.role-setup.edit-role-permission', compact('roles', 'permissions','permission_groups'));
 
     }
+
+    public function AdminDeleteRole($id)
+    {
+        $role = Role::findOrFail($id);
+        if (!is_null($role)) {
+            $role->delete();
+        }
+        $notification = array(
+            'message' => 'Role Permission Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    
+
+    }
 }
