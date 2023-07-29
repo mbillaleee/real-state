@@ -214,7 +214,14 @@ class RoleController extends Controller
             'message' => 'Role Permission Added Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        return redirect()->route('all.roles.permission')->with($notification);
     
+    }
+
+    public function AllRolePermission(Request $request)
+    {
+        $roles = Role::all();
+        return view('backend.pages.role-setup.all-role-permission', compact('roles'));
+
     }
 }

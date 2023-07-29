@@ -103,6 +103,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/import/store/role', 'ImportStoreRole')->name('import.store.role');
         
         
+        Route::get('/all/roles/permission', 'AllRolePermission')->name('all.roles.permission');
         Route::get('/add/roles/permission', 'AddRolePermission')->name('add.roles.permission');
         Route::post('/store/role/permission', 'StoreRolePermission')->name('store.role.permission');
 
