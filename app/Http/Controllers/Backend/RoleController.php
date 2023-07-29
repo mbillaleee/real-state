@@ -224,4 +224,13 @@ class RoleController extends Controller
         return view('backend.pages.role-setup.all-role-permission', compact('roles'));
 
     }
+
+    public function AdminEditRole($id)
+    {
+        $roles = Role::findOrFail($id);
+        $permissions = Permission::all();
+        $permission_groups = User::getPermissionGroups();
+        return view('backend.pages.role-setup.edit-role-permission', compact('roles', 'permissions','permission_groups'));
+
+    }
 }
