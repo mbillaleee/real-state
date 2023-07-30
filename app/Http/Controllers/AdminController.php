@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -99,6 +101,84 @@ class AdminController extends Controller
 
 
         return view('admin.admin-change-password', compact('profileData'));
+    }
+
+
+    // ////////Admin Manage all Method ////////////////////
+    
+    public function AllAdmin()
+    {
+        $allAdmin = User::where('role','admin')->get();
+        return view('backend.pages.admin.all-admin', compact('allAdmin'));
+    }
+    public function AddAdmin()
+    {
+        $roles = Role::all();
+        $permission = Permission::all();
+        return view('backend.pages.admin.add-admin', compact('roles'));
+    }
+    public function StoreAdmin(Request $request)
+    {
+        $user = new User();
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->role = 'admin';
+        $user->status = 'active';
+        $user->password = Hash::make($request->password);
+        if ($request->file('photo')) {
+            $file = $request->file('photo');
+            @unlink(public_path('uploads/admin-images/'.$user->photo));
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('uploads/admin-images'),$filename);
+            $user['photo'] = $filename;
+        }
+        $user->save();
+
+        if ($request->roles) {
+           $user->assignRole($request->roles);
+        }
+
+        $notification = array(
+            'message' => 'New Admin created Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.admin')->with($notification);
+    }
+
+    public function EditAdmin($id)
+    {
+        $user = User::find($id);
+        $roles = Role::all();
+        $permission = Permission::all();
+        return view('backend.pages.admin.edit-admin', compact('roles', 'user'));
+    }
+
+    public function UpdateAdmin(Request $request, $id)
+    {
+        $user = User::findorFail($id);
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->role = 'admin';
+        $user->status = 'active';
+        $user->save();
+
+
+        $user->roles()->detach();
+        if ($request->roles) {
+           $user->assignRole($request->roles);
+        }
+
+        $notification = array(
+            'message' => 'New Admin Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.admin')->with($notification);
     }
     
 }
