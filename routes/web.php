@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 });
 
 //Admin Group Middleware
-Route::middleware(['auth','role:admin'])->group(function(){
+Route::middleware(['auth','roles:admin'])->group(function(){
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
     Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
@@ -42,7 +42,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admin/change/password', [AdminController::class, 'AdminCangePassword'])->name('admin.change.password');
     Route::post('/admin/update/password', [AdminController::class, 'AdminUpdatePassword'])->name('admin.update.password');
 });
-Route::middleware(['auth','role:agent'])->group(function(){
+Route::middleware(['auth','roles:agent'])->group(function(){
     Route::get('/agent/dashboard', [AgentController::class, 'AgentDashboard'])->name('agent.dashboard');
 });
 
@@ -52,11 +52,11 @@ Route::get('/admin/login', [AdminController::class, 'AdminLogIn'])->name('admin.
 
 
 //Admin Group Middleware
-Route::middleware(['auth','role:admin'])->group(function(){
+Route::middleware(['auth','roles:admin'])->group(function(){
     Route::controller(PropertyTypeController::class)->group(function(){
         //Property type controller
-        Route::get('/all/type', 'index')->name('all.type');
-        Route::get('/add/type', 'create')->name('add.type');
+        Route::get('/all/type', 'index')->name('all.type')->middleware('permission::all.property');
+        Route::get('/add/type', 'create')->name('add.type')->middleware('permission::add.property');
         Route::post('/store/type', 'store')->name('store.type');
         Route::get('/edit/type/{id}', 'edit')->name('edit.type');
         Route::post('/update/type/{id}', 'update')->name('update.type');
