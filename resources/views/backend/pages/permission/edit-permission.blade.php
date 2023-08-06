@@ -6,6 +6,11 @@
         <div class="row profile-body">
           <!-- middle wrapper start -->
           <div class="col-md-8 col-xl-8 middle-wrapper">
+            <nav class="page-breadcrumb">
+                <ol class="breadcrumb">
+                        <a href="{{route('all.permission')}}" class="btn btn-inverse-info ">Back</a>
+                </ol>
+            </nav>
                 <div class="row">
                         <div class="card">
                                 <div class="card-body">
@@ -39,7 +44,7 @@
                                                                 <option value="role" {{$permission->group_name == 'role' ? 'selected' : ''}}>Role & Permission</option>
                                                         </select>                                                    
                                                 </div>
-                                                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                                                <button type="submit" class="btn btn-primary me-2">Update</button>
                                         </form>
 
                                 </div>

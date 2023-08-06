@@ -33,7 +33,7 @@
                                                 <td>{{ $item->name }}</td>
                                                 <td>
                                                         @foreach ($item->permissions as $perm)
-                                                        <span class="badge bg-danger">{{ $perm->name }}</span><br>
+                                                        <span class="badge bg-danger">{{ $perm->name }}</span>
                                                         @endforeach
                                                 </td>
                                                 <td>

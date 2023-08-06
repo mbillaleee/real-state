@@ -19,6 +19,7 @@
               </a>
             </li>
             <li class="nav-item nav-category">RealEstate</li>
+            @if(Auth::user()->can('Agent.Menu'))
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
                 <i class="link-icon" data-feather="mail"></i>
@@ -27,15 +28,20 @@
               </a>
               <div class="collapse" id="emails">
                 <ul class="nav sub-menu">
+                  @if(Auth::user()->can('Agent.All'))
                   <li class="nav-item">
                     <a href="{{ route('all.type')}}" class="nav-link">All Type</a>
                   </li>
+                  @endif
+                  @if(Auth::user()->can('Agent.Add'))
                   <li class="nav-item">
                     <a href="{{route('add.type')}}" class="nav-link">Add Type</a>
                   </li>
+                  @endif
                 </ul>
               </div>
             </li>
+            @endif
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#amenitie" role="button" aria-expanded="false" aria-controls="emails">
                 <i class="link-icon" data-feather="mail"></i>
@@ -132,7 +138,7 @@
                     <a href="{{route('all.admin')}}" class="nav-link">All Admin</a>
                   </li>
                   <li class="nav-item">
-                    {{-- <a href="{{route('add.admin')}}" class="nav-link">Add Admin</a> --}}
+                    <a href="{{route('add.admin')}}" class="nav-link">Add Admin</a>
                   </li>
                 </ul>
               </div>

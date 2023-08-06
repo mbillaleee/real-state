@@ -10,7 +10,7 @@
                         <div class="card">
                                 <div class="card-body">
 
-                                        <h6 class="card-title">Edit Permission</h6>
+                                        <h6 class="card-title">Edit Permission</h6>  
 
                                         <form class="forms-sample mt-3" method="POST" action="{{route('update.role', $role->id)}}" id="myForm">
                                                 @csrf

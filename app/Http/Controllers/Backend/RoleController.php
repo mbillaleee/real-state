@@ -202,13 +202,14 @@ class RoleController extends Controller
         // dd($request->all());
         $data = array();
         $permissions  = $request->permission;
+        // dd($permissions);
 
         foreach($permissions  as $key => $item){
-            $data['role_id'] = $request->role_id;
+            $data['role_id'] = $request->id;
             $data['permission_id'] = $item;
 
             DB::table('role_has_permissions')
-                    ->insert($data);
+                    ->update($data);
         } //End foreach
         $notification = array(
             'message' => 'Role Permission Added Successfully',
@@ -233,6 +234,22 @@ class RoleController extends Controller
         return view('backend.pages.role-setup.edit-role-permission', compact('roles', 'permissions','permission_groups'));
 
     }
+    public function AdminUpdateRole(Request $request, $id)
+    {
+        $role = Role::findOrFail($id);
+        $permissions  = $request->permission;
+
+        if (!empty($permissions)) {
+           $role->syncPermissions($permissions);
+        }
+        $notification = array(
+            'message' => 'Role Permission Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.roles.permission')->with($notification);
+    
+    }
+
 
     public function AdminDeleteRole($id)
     {
